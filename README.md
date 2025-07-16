@@ -1,4 +1,4 @@
-# 🌱 LiveLevelUp
+# 🌱 LifeLevelUp
 
 > "Cada elección saludable que haces... impacta más allá de ti."
 
@@ -7,7 +7,7 @@ Un espacio donde cuidar tu cuerpo, tus hábitos y tu entorno se convierte en un 
 
 ---
 
-## 🌍 ¿Qué es LiveLevelUp?
+## 🌍 ¿Qué es LifeLevelUp?
 
 Una experiencia dividida en dos secciones conectadas:
 
