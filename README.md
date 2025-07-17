@@ -2,7 +2,7 @@
 
 > "Cada elección saludable que haces... impacta más allá de ti."
 
-LiveLevelUp es una **web app interactiva** que une tu bienestar personal con la salud global del planeta.
+LifeLevelUp es una **web app interactiva** que une tu bienestar personal con la salud global del planeta.
 Un espacio donde cuidar tu cuerpo, tus hábitos y tu entorno se convierte en un juego de conciencia y evolución.
 
 ---
@@ -64,7 +64,7 @@ Una experiencia dividida en dos secciones conectadas:
 ## 📁 Estructura del Proyecto
 
 ```text
-livelevelup/
+lifelevelup/
 ├── frontend/         # Interfaz web (Angular/React + Tailwind)
 ├── backend/          # API y lógica de usuario (Node.js + Express)
 ├── avatar-system/    # Núcleo de cálculo vital y visualización
@@ -124,13 +124,13 @@ Queremos que LiveLevelUp sea más que una app:
 
 ## 🪶 Licencia
 
-LiveLevelUp License v1.0 – Proyecto de Bienestar y Conciencia Planetaria  
+LifeLevelUp License v1.0 – Proyecto de Bienestar y Conciencia Planetaria  
 Copyright © 2025  
 Todos los derechos reservados.
 
 ---
 
-## 🌟 LiveLevelUp no es solo una app
+## 🌟 LifeLevelUp no es solo una app
 
 Es un reflejo de lo que somos…  
 y de lo que podríamos ser si todos decidimos mejorar.
