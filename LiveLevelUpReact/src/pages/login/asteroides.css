@@ -1,0 +1,82 @@
+.roca-cuerpo {
+  fill: #6b6f82;
+  stroke: #9da2b8;
+  stroke-width: 2;
+}
+
+.roca-crater {
+  fill: #4a4e60;
+}
+
+.asteroide {
+  display: block;
+  animation: asteroide-giro linear infinite;
+  filter: drop-shadow(0 0 6px #64b5f633);
+}
+
+@keyframes asteroide-giro {
+  to { transform: rotate(360deg); }
+}
+
+/* Campo de fondo: cada roca cruza la pantalla de lado a lado */
+.campo-asteroides {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.asteroide-viaje {
+  position: absolute;
+  left: -60px;
+  opacity: 0.55;
+  animation: asteroide-cruza linear infinite;
+}
+
+.asteroide-viaje.hacia-izquierda {
+  left: auto;
+  right: -60px;
+  animation-name: asteroide-cruza-izquierda;
+}
+
+@keyframes asteroide-cruza {
+  from { transform: translate(0, 0); }
+  to { transform: translate(calc(100vw + 120px), 12vh); }
+}
+
+@keyframes asteroide-cruza-izquierda {
+  from { transform: translate(0, 0); }
+  to { transform: translate(calc(-100vw - 120px), -10vh); }
+}
+
+/* Cinturón alrededor del planeta */
+.cinturon {
+  position: absolute;
+  inset: -34px;
+  animation: cinturon-orbita 30s linear infinite;
+  pointer-events: none;
+}
+
+.cinturon-brazo {
+  position: absolute;
+  inset: 0;
+}
+
+.asteroide-orbita {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+@keyframes cinturon-orbita {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asteroide,
+  .asteroide-viaje,
+  .cinturon {
+    animation: none;
+  }
+}

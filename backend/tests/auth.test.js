@@ -79,3 +79,30 @@ test('una ruta inexistente devuelve 404', async () => {
   const res = await request(app).get('/api/no-existe');
   assert.equal(res.status, 404);
 });
+
+test('un proveedor social sin configurar vuelve al login con un aviso', async () => {
+  delete process.env.GOOGLE_CLIENT_ID;
+  const res = await request(app).get('/api/auth/google');
+  assert.equal(res.status, 302);
+  assert.match(res.headers.location, /\/login\?error=.*Google/);
+});
+
+test('un proveedor configurado redirige a su página de acceso', async () => {
+  process.env.GITHUB_CLIENT_ID = 'id-de-prueba';
+  process.env.GITHUB_CLIENT_SECRET = 'secreto-de-prueba';
+  const res = await request(app).get('/api/auth/github');
+  assert.equal(res.status, 302);
+  assert.match(res.headers.location, /^https:\/\/github\.com\/login\/oauth\/authorize\?/);
+  assert.match(res.headers.location, /state=/);
+});
+
+test('el callback rechaza un state falsificado', async () => {
+  const res = await request(app).get('/api/auth/github/callback?code=x&state=falso');
+  assert.equal(res.status, 302);
+  assert.match(res.headers.location, /\/login\?error=/);
+});
+
+test('un proveedor que no existe devuelve 404', async () => {
+  const res = await request(app).get('/api/auth/myspace');
+  assert.equal(res.status, 404);
+});

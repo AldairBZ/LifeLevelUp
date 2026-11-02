@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 
 // Importar rutas
 import authRoutes from './routes/auth.js';
+import oauthRoutes from './routes/oauth.js';
 import userRoutes from './routes/users.js';
 import avatarRoutes from './routes/avatar.js';
 import healthRoutes from './routes/health.js';
@@ -61,6 +62,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Rutas API
 app.use('/api/auth', authRoutes);
+app.use('/api/auth', oauthRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/avatar', avatarRoutes);
 app.use('/api/health', healthRoutes);
