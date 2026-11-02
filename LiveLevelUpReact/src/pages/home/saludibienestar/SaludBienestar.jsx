@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Layout from '../../../components/Layout.jsx';
 import styles from './SaludBienestar.module.css';
 import gatoMedico from '../../../assets/gato-medico.png';
 
+const catTips = [
+  "¡Hola! Recuerda beber agua cada hora 🥤",
+  "Una manzana al día mantiene al doctor lejos 🍎",
+  "El ejercicio libera endorfinas, ¡la hormona de la felicidad! 🏃‍♂️",
+  "Dormir bien es clave para tu salud mental 😴",
+  "La meditación reduce el estrés y mejora la concentración 🧘‍♀️"
+];
+
 export default function SaludBienestar() {
-  const navigate = useNavigate();
-  const { darkMode } = useTheme();
   const [showHabitsDropdown, setShowHabitsDropdown] = useState(false);
   const [showActionsDropdown, setShowActionsDropdown] = useState(false);
-  const [showAchievements, setShowAchievements] = useState(false);
   const [showCatTip, setShowCatTip] = useState(false);
   const [healthStatus, setHealthStatus] = useState('Neutro');
   const [healthEmoji, setHealthEmoji] = useState('😐');
@@ -18,7 +21,8 @@ export default function SaludBienestar() {
   const [userActions, setUserActions] = useState([]);
   const [avatarMood, setAvatarMood] = useState('happy');
   const [currentTip, setCurrentTip] = useState('');
-  const [achievements, setAchievements] = useState([
+  const [showAchievements, setShowAchievements] = useState(true);
+  const [achievements] = useState([
     { id: 1, name: 'Primer paso saludable', icon: '🌱', unlocked: true },
     { id: 2, name: 'Come-frutas', icon: '🍎', unlocked: true },
     { id: 3, name: 'Hidratación perfecta', icon: '💧', unlocked: false },
@@ -41,13 +45,6 @@ export default function SaludBienestar() {
     { id: 4, name: 'Llamar a un amigo', impact: 12, icon: '📞' }
   ];
 
-  const catTips = [
-    "¡Hola! Recuerda beber agua cada hora 🥤",
-    "Una manzana al día mantiene al doctor lejos 🍎",
-    "El ejercicio libera endorfinas, ¡la hormona de la felicidad! 🏃‍♂️",
-    "Dormir bien es clave para tu salud mental 😴",
-    "La meditación reduce el estrés y mejora la concentración 🧘‍♀️"
-  ];
 
   useEffect(() => {
     const tipInterval = setInterval(() => {
@@ -334,6 +331,7 @@ export default function SaludBienestar() {
                   <h3>Logros</h3>
                 </div>
                 
+                {showAchievements && (
                 <div className={styles.achievementsList}>
                   {achievements.map(achievement => (
                     <div 
@@ -346,12 +344,13 @@ export default function SaludBienestar() {
                     </div>
                   ))}
                 </div>
-                
+                )}
+
                 <button 
                   className={styles.closeAchievementsButton}
-                  onClick={() => setShowAchievements(false)}
+                  onClick={() => setShowAchievements(!showAchievements)}
                 >
-                  Cerrar
+                  {showAchievements ? 'Cerrar' : 'Ver logros'}
                 </button>
               </div>
             </div>

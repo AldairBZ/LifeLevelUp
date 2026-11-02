@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Layout from '../../../components/Layout.jsx';
 import styles from './SaludPlaneta.module.css';
 import planetaImg from '../../../assets/svg/planet.png';
 import gatoMedicoImg from '../../../assets/gato-medico.png';
 
+const catTips = [
+  "¡Hola! Recuerda apagar las luces cuando salgas de una habitación 💡",
+  "Un árbol puede absorber hasta 22kg de CO2 al año 🌳",
+  "El transporte público reduce las emisiones en un 45% 🚌",
+  "Los productos locales viajan menos y contaminan menos 🛒",
+  "Reciclar una botella ahorra la energía de 6 horas de bombilla ♻️",
+  "Usar la bici para trayectos cortos es saludable y ecológico 🚲",
+  "Los productos de temporada tienen menor impacto ambiental 🌱",
+  "Desconectar dispositivos ahorra energía y dinero ⚡"
+];
+
 export default function SaludPlaneta() {
-  const navigate = useNavigate();
-  const { darkMode } = useTheme();
   const [showActionsDropdown, setShowActionsDropdown] = useState(false);
   const [showCatTip, setShowCatTip] = useState(false);
   const [planetaHealth, setPlanetaHealth] = useState(45); // Fijo en 45 como solicitas
@@ -36,16 +43,6 @@ export default function SaludPlaneta() {
     { id: 6, name: 'Usar el coche para trayectos cortos', impact: -6, icon: '🚗', description: 'Los trayectos cortos en coche son los más contaminantes por km recorrido.' }
   ];
 
-  const catTips = [
-    "¡Hola! Recuerda apagar las luces cuando salgas de una habitación 💡",
-    "Un árbol puede absorber hasta 22kg de CO2 al año 🌳",
-    "El transporte público reduce las emisiones en un 45% 🚌",
-    "Los productos locales viajan menos y contaminan menos 🛒",
-    "Reciclar una botella ahorra la energía de 6 horas de bombilla ♻️",
-    "Usar la bici para trayectos cortos es saludable y ecológico 🚲",
-    "Los productos de temporada tienen menor impacto ambiental 🌱",
-    "Desconectar dispositivos ahorra energía y dinero ⚡"
-  ];
 
   useEffect(() => {
     const tipInterval = setInterval(() => {

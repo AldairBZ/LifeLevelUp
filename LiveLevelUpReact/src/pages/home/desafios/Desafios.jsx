@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Layout from '../../../components/Layout.jsx';
 import styles from './Desafios.module.css';
 
 export default function Desafios() {
-  const navigate = useNavigate();
-  const { darkMode } = useTheme();
   const [activeFilter, setActiveFilter] = useState('todos');
 
   const weeklyChallenges = [

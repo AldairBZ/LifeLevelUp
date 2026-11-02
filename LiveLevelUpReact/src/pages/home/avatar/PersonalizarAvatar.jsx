@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Layout from '../../../components/Layout.jsx';
 import styles from './Avatar.module.css';
 import MonigoteBase from './MonigoteBase.jsx';
 
 export default function PersonalizarAvatar() {
-  const { darkMode } = useTheme();
   const [showConfig, setShowConfig] = useState(false);
   const [activeCategory, setActiveCategory] = useState('cabeza');
   const [draggedItem, setDraggedItem] = useState(null);
@@ -100,7 +98,7 @@ export default function PersonalizarAvatar() {
     e.dataTransfer.dropEffect = 'move';
   };
 
-  const handleDrop = (e, dropZone) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     if (draggedItem) {
       const newEquippedClothing = { ...equippedClothing };

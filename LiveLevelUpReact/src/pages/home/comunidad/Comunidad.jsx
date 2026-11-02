@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../../contexts/ThemeContext';
 import Layout from '../../../components/Layout.jsx';
 import styles from './Comunidad.module.css';
 
 export default function Comunidad() {
-  const navigate = useNavigate();
-  const { darkMode } = useTheme();
   const [activeTab, setActiveTab] = useState('historias');
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showPostForm, setShowPostForm] = useState(false);
+  const [newPost, setNewPost] = useState({ title: '', content: '', category: 'consejo' });
 
   const successStories = [
     {
@@ -65,7 +62,7 @@ export default function Comunidad() {
     }
   ];
 
-  const forumTopics = [
+  const initialTopics = [
     {
       id: 1,
       user: "EcoWarrior_2024",
@@ -149,6 +146,19 @@ export default function Comunidad() {
     points: 2847,
     achievements: 8,
     streak: 23
+  };
+
+  const [forumTopics, setForumTopics] = useState(initialTopics);
+
+  const handleCreatePost = (e) => {
+    e.preventDefault();
+    if (!newPost.title.trim() || !newPost.content.trim()) return;
+    setForumTopics([
+      { id: Date.now(), user: 'Tú', avatar: '🙂', likes: 0, comments: 0, time: 'Ahora', ...newPost },
+      ...forumTopics
+    ]);
+    setNewPost({ title: '', content: '', category: 'consejo' });
+    setShowPostForm(false);
   };
 
   const getCategoryColor = (category) => {
@@ -324,12 +334,38 @@ export default function Comunidad() {
                     <h2 className={styles.sectionTitle}>💬 Foro Comunitario</h2>
                     <button 
                       className={styles.createPostButton}
-                      onClick={() => setShowSidebar(true)}
+                      onClick={() => setShowPostForm(!showPostForm)}
                     >
-                      <span>✏️</span>
-                      <span>Crear Post</span>
+                      <span>{showPostForm ? '✕' : '✏️'}</span>
+                      <span>{showPostForm ? 'Cancelar' : 'Crear Post'}</span>
                     </button>
                   </div>
+
+                  {showPostForm && (
+                    <form className={`${styles.postCard} ${styles.newPostForm}`} onSubmit={handleCreatePost}>
+                      <input
+                        placeholder="Título"
+                        value={newPost.title}
+                        onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                      />
+                      <textarea
+                        placeholder="¿Qué quieres compartir?"
+                        rows={3}
+                        value={newPost.content}
+                        onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                      />
+                      <select
+                        value={newPost.category}
+                        onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
+                      >
+                        <option value="consejo">💡 Consejo</option>
+                        <option value="logro">🏆 Logro</option>
+                        <option value="descubrimiento">🔍 Descubrimiento</option>
+                        <option value="pregunta">❓ Pregunta</option>
+                      </select>
+                      <button type="submit" className={styles.createPostButton}>Publicar</button>
+                    </form>
+                  )}
 
                   <div className={styles.postsGrid}>
                     {forumTopics.map(post => (

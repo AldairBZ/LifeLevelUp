@@ -81,7 +81,6 @@ export default function FondoEspacioLogin() {
     }
     lanzarElemento();
     return () => { activo = false; };
-    // eslint-disable-next-line
   }, [elementos]);
   function quitarElemento(id) {
     setElementos(els => els.filter(e => e.id !== id));

@@ -5,9 +5,9 @@ import HeroSection from './HeroSection';
 
 export default function Home() {
   const [userCount, setUserCount] = useState(1247);
-  const [co2Saved, setCo2Saved] = useState(128304);
-  const [waterSaved, setWaterSaved] = useState(1032000);
-  const [kmWalked, setKmWalked] = useState(82000);
+  const [co2Saved] = useState(128304);
+  const [waterSaved] = useState(1032000);
+  const [kmWalked] = useState(82000);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

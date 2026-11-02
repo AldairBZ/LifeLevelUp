@@ -1340,3 +1340,23 @@
   color: var(--primary-green) !important;
   background: rgba(16, 185, 129, 0.1) !important;
 } 
+/* Formulario para crear un post en el foro */
+.newPostForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.newPostForm input,
+.newPostForm textarea,
+.newPostForm select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  font: inherit;
+}
+
+.newPostForm button {
+  align-self: flex-end;
+}

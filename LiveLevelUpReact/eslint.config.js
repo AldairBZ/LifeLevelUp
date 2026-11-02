@@ -24,6 +24,8 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // El contexto del tema exporta su hook junto al provider
+      'react-refresh/only-export-components': ['error', { allowExportNames: ['useTheme'] }],
     },
   },
 ])

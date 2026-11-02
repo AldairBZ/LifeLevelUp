@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../../contexts/ThemeContext';
+import React, { useState } from 'react';
 import Layout from '../../../components/Layout.jsx';
 import styles from './Blogs.module.css';
 
 export default function Blogs() {
-  const navigate = useNavigate();
-  const { darkMode } = useTheme();
   const [activeCategory, setActiveCategory] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
 
