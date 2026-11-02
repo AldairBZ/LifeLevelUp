@@ -658,8 +658,9 @@ body {
   }
 }
 
+/* El giro lento del planeta se mantiene: es la identidad de la página.
+   Con movimiento reducido solo se paran la flotación y el parpadeo de la pista. */
 @media (prefers-reduced-motion: reduce) {
-  .planeta-animado,
   .planeta-boton,
   .pista-entrar {
     animation: none !important;

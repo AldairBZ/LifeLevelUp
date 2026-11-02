@@ -42,12 +42,12 @@
 
 @keyframes asteroide-cruza {
   from { transform: translate(0, 0); }
-  to { transform: translate(calc(100vw + 120px), 12vh); }
+  to { transform: translateX(calc(100vw + 120px)); }
 }
 
 @keyframes asteroide-cruza-izquierda {
   from { transform: translate(0, 0); }
-  to { transform: translate(calc(-100vw - 120px), -10vh); }
+  to { transform: translateX(calc(-100vw - 120px)); }
 }
 
 /* Cinturón alrededor del planeta */
@@ -73,10 +73,9 @@
   to { transform: rotate(360deg); }
 }
 
+/* Con movimiento reducido los asteroides siguen su camino, pero sin girar sobre sí mismos */
 @media (prefers-reduced-motion: reduce) {
-  .asteroide,
-  .asteroide-viaje,
-  .cinturon {
+  .asteroide {
     animation: none;
   }
 }
