@@ -1,0 +1,38 @@
+/*
+  Sistema de diseño de LifeLevelUp.
+  La idea: un cielo nocturno visto desde un observatorio. El planeta es el
+  protagonista y su salud se expresa con dos colores vivos: bioma (salud)
+  y sol (energía). Todo lo demás es tranquilo para que el planeta destaque.
+*/
+:root {
+  /* Color */
+  --llu-night: #0f1b3d;      /* fondo principal: azul noche profundo */
+  --llu-orbit: #1b2b5c;      /* superficies elevadas */
+  --llu-orbit-line: #2e4280; /* bordes y separadores */
+  --llu-mist: #e6ecff;       /* texto principal sobre noche */
+  --llu-haze: #9aa8d6;       /* texto secundario */
+  --llu-biome: #4fe0b0;      /* salud, acciones positivas */
+  --llu-sun: #ffcb5c;        /* energía, logros */
+  --llu-nova: #ff7a7a;       /* errores y acciones negativas */
+
+  /* Tipografía */
+  --llu-font-display: 'Unbounded', system-ui, sans-serif;
+  --llu-font-body: 'Figtree', system-ui, sans-serif;
+  --llu-text-sm: 0.875rem;
+  --llu-text-md: 1rem;
+  --llu-text-lg: 1.25rem;
+  --llu-text-xl: 1.75rem;
+  --llu-text-2xl: clamp(2.25rem, 5vw, 3.5rem);
+
+  /* Espacio y forma */
+  --llu-space-1: 0.25rem;
+  --llu-space-2: 0.5rem;
+  --llu-space-3: 0.75rem;
+  --llu-space-4: 1rem;
+  --llu-space-6: 1.5rem;
+  --llu-space-8: 2rem;
+  --llu-space-12: 3rem;
+  --llu-radius-sm: 10px;   /* campos y botones */
+  --llu-radius-lg: 24px;   /* paneles */
+  --llu-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

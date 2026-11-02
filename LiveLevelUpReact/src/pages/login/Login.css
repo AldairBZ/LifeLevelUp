@@ -1,0 +1,323 @@
+.auth {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 440px);
+  grid-template-rows: auto 1fr;
+  gap: var(--llu-space-8) clamp(var(--llu-space-8), 6vw, 6rem);
+  padding: var(--llu-space-8) clamp(var(--llu-space-6), 6vw, 6rem);
+  color: var(--llu-mist);
+  font-family: var(--llu-font-body);
+  /* Cielo: estrellas fijas y una luz suave detrás del planeta */
+  background:
+    radial-gradient(1px 1px at 12% 18%, #fff9 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 12%, #fff7 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 84% 62%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 32% 78%, #fff6 50%, transparent 51%),
+    radial-gradient(1px 1px at 52% 44%, #fff5 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 6% 58%, #fff7 50%, transparent 51%),
+    radial-gradient(60% 70% at 25% 55%, #1f3b7a 0%, transparent 70%),
+    var(--llu-night);
+}
+
+.auth__brand {
+  grid-column: 1 / -1;
+  font-family: var(--llu-font-display);
+  font-weight: 700;
+  font-size: var(--llu-text-lg);
+  letter-spacing: -0.01em;
+}
+
+.auth__story {
+  align-self: center;
+  display: grid;
+  justify-items: start;
+  gap: var(--llu-space-6);
+  max-width: 34rem;
+}
+
+/* Planeta con el anillo de salud: el único elemento llamativo de la página */
+.auth-planet {
+  position: relative;
+  width: clamp(220px, 30vw, 340px);
+  aspect-ratio: 1;
+  margin: 0;
+}
+
+.auth-planet__img {
+  position: absolute;
+  inset: 12%;
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 48px #2f7bd255);
+}
+
+.auth-planet__ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.auth-planet__track,
+.auth-planet__health {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.auth-planet__track {
+  stroke: var(--llu-orbit-line);
+}
+
+.auth-planet__health {
+  stroke: var(--llu-biome);
+  stroke-linecap: round;
+  stroke-dashoffset: var(--ring-offset);
+  animation: auth-ring-fill 1.6s var(--llu-ease) both;
+}
+
+@keyframes auth-ring-fill {
+  from { stroke-dashoffset: 290; }
+  to { stroke-dashoffset: var(--ring-offset); }
+}
+
+.auth-planet__caption {
+  position: absolute;
+  right: -0.5rem;
+  bottom: 8%;
+  display: grid;
+  padding: var(--llu-space-2) var(--llu-space-4);
+  border-radius: var(--llu-radius-sm);
+  background: var(--llu-orbit);
+  border: 1px solid var(--llu-orbit-line);
+  line-height: 1.2;
+}
+
+.auth-planet__caption strong {
+  font-family: var(--llu-font-display);
+  font-size: var(--llu-text-lg);
+  color: var(--llu-biome);
+}
+
+.auth-planet__caption span {
+  font-size: var(--llu-text-sm);
+  color: var(--llu-haze);
+}
+
+.auth__headline {
+  margin: 0;
+  font-family: var(--llu-font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.auth__lead {
+  margin: 0;
+  max-width: 30rem;
+  font-size: var(--llu-text-lg);
+  line-height: 1.55;
+  color: var(--llu-haze);
+}
+
+.auth .auth__links {
+  background: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--llu-space-6);
+}
+
+.auth .auth__links a,
+.auth .auth__links button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--llu-text-sm);
+  color: var(--llu-mist);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--llu-orbit-line);
+  cursor: pointer;
+}
+
+.auth .auth__links a:hover,
+.auth .auth__links button:hover {
+  text-decoration-color: var(--llu-biome);
+}
+
+/* Panel del formulario */
+.auth-panel {
+  align-self: center;
+  padding: var(--llu-space-8);
+  border-radius: var(--llu-radius-lg);
+  background: color-mix(in srgb, var(--llu-orbit) 88%, transparent);
+  border: 1px solid var(--llu-orbit-line);
+  box-shadow: 0 30px 80px -30px #000a;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: var(--llu-space-1);
+  border-radius: var(--llu-radius-sm);
+  background: var(--llu-night);
+}
+
+.auth .auth-tab {
+  padding: var(--llu-space-2) var(--llu-space-3);
+  border: 0;
+  border-radius: calc(var(--llu-radius-sm) - 4px);
+  background: none;
+  font: 600 var(--llu-text-sm) / 1.4 var(--llu-font-body);
+  color: var(--llu-haze);
+  cursor: pointer;
+  transition: background 200ms var(--llu-ease), color 200ms var(--llu-ease);
+}
+
+.auth .auth-tab[aria-selected='true'] {
+  background: var(--llu-orbit-line);
+  color: var(--llu-mist);
+}
+
+.auth-panel__title {
+  margin: var(--llu-space-8) 0 var(--llu-space-6);
+  font-family: var(--llu-font-display);
+  font-weight: 500;
+  font-size: var(--llu-text-xl);
+  letter-spacing: -0.01em;
+}
+
+.auth-form {
+  display: grid;
+  gap: var(--llu-space-4);
+}
+
+.auth-field {
+  display: grid;
+  gap: var(--llu-space-2);
+  font-size: var(--llu-text-sm);
+  font-weight: 500;
+}
+
+.auth .auth-field input {
+  padding: var(--llu-space-3) var(--llu-space-4);
+  border: 1px solid var(--llu-orbit-line);
+  border-radius: var(--llu-radius-sm);
+  background: var(--llu-night);
+  font: inherit;
+  font-size: var(--llu-text-md);
+  font-weight: 400;
+  color: var(--llu-mist);
+  transition: border-color 200ms var(--llu-ease);
+}
+
+.auth .auth-field input:focus {
+  outline: none;
+  border-color: var(--llu-biome);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--llu-biome) 25%, transparent);
+}
+
+.auth-field small {
+  font-weight: 400;
+  color: var(--llu-haze);
+}
+
+.auth .auth-error {
+  margin: 0;
+  padding: var(--llu-space-3) var(--llu-space-4);
+  border-radius: var(--llu-radius-sm);
+  background: color-mix(in srgb, var(--llu-nova) 14%, transparent);
+  color: var(--llu-nova);
+  font-size: var(--llu-text-sm);
+}
+
+.auth .auth-submit {
+  margin-top: var(--llu-space-2);
+  padding: var(--llu-space-3) var(--llu-space-4);
+  border: 0;
+  border-radius: var(--llu-radius-sm);
+  background: var(--llu-biome);
+  font: 600 var(--llu-text-md) / 1.4 var(--llu-font-body);
+  color: var(--llu-night);
+  cursor: pointer;
+  transition: transform 150ms var(--llu-ease), filter 150ms var(--llu-ease);
+}
+
+.auth .auth-submit:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.auth .auth-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.auth .auth-submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.auth .auth-tab:focus-visible,
+.auth .auth-submit:focus-visible,
+.auth .auth__links a:focus-visible,
+.auth .auth__links button:focus-visible {
+  outline: 2px solid var(--llu-sun);
+  outline-offset: 3px;
+}
+
+/* Términos */
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: var(--llu-space-6);
+  background: #050a1bcc;
+}
+
+.auth-modal__box {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--llu-space-8);
+  border-radius: var(--llu-radius-lg);
+  background: #fff;
+  color: #1a2340;
+}
+
+.auth .auth-modal__close {
+  position: absolute;
+  top: var(--llu-space-4);
+  right: var(--llu-space-4);
+  border: 0;
+  background: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .auth {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .auth__story {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .auth__links {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-planet__health {
+    animation: none;
+  }
+}

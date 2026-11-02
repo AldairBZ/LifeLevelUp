@@ -61,6 +61,11 @@ export default function BackendConnection() {
     }
   };
 
+  // Solo se avisa cuando algo falla; si todo va bien no molesta
+  if (connectionStatus === 'connected' || connectionStatus === 'checking') {
+    return null;
+  }
+
   return (
     <div style={{
       position: 'fixed',
