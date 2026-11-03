@@ -44,7 +44,7 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <a href="https://github.com/AldairBZ/Frontend" target="_blank" rel="noreferrer">
+                <a href="https://github.com/AldairBZ/LifeLevelUp" target="_blank" rel="noreferrer">
                   Código en GitHub
                 </a>
               </li>

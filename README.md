@@ -4,7 +4,7 @@ Aplicación web que convierte los hábitos saludables y sostenibles en un juego:
 
 Proyecto final del bootcamp **Desenvolupament Web FullStack amb Java** (Fundación Esplai, 2025), desarrollado en equipo. Después del bootcamp lo he seguido mejorando: unifiqué el backend en este repositorio, conecté el frontend con la API, añadí login social, tests e integración continua, y rediseñé la interfaz.
 
-![React](https://img.shields.io/badge/React-19-149eca) ![Vite](https://img.shields.io/badge/Vite-7-646cff) ![Node.js](https://img.shields.io/badge/Node.js-Express-3c873a) ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248) [![CI](https://github.com/AldairBZ/Frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/AldairBZ/Frontend/actions/workflows/ci.yml)
+![React](https://img.shields.io/badge/React-19-149eca) ![Vite](https://img.shields.io/badge/Vite-7-646cff) ![Node.js](https://img.shields.io/badge/Node.js-Express-3c873a) ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248) [![CI](https://github.com/AldairBZ/LifeLevelUp/actions/workflows/ci.yml/badge.svg)](https://github.com/AldairBZ/LifeLevelUp/actions/workflows/ci.yml)
 
 ## Qué se puede hacer
 
