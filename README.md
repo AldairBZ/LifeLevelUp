@@ -6,6 +6,10 @@ Proyecto final del bootcamp **Desenvolupament Web FullStack amb Java** (Fundaci�
 
 ![React](https://img.shields.io/badge/React-19-149eca) ![Vite](https://img.shields.io/badge/Vite-7-646cff) ![Node.js](https://img.shields.io/badge/Node.js-Express-3c873a) ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248) [![CI](https://github.com/AldairBZ/LifeLevelUp/actions/workflows/ci.yml/badge.svg)](https://github.com/AldairBZ/LifeLevelUp/actions/workflows/ci.yml)
 
+**Demo:** [lifelevelup.08-pruebas.workers.dev](https://lifelevelup.08-pruebas.workers.dev) · **API:** [lifelevelup-api.onrender.com/api/health-check](https://lifelevelup-api.onrender.com/api/health-check)
+
+> El backend usa el plan gratuito de Render: si lleva un rato sin uso, la primera petición puede tardar unos 50 segundos mientras el servidor arranca.
+
 ## Qué se puede hacer
 
 - **Registro e inicio de sesión** con email y contraseña (JWT), o con **Google, GitHub y Facebook** mediante OAuth 2.0.
@@ -22,6 +26,7 @@ Proyecto final del bootcamp **Desenvolupament Web FullStack amb Java** (Fundaci�
 | Backend | Node.js, Express, Mongoose, JWT, express-validator, Helmet, rate limiting |
 | Base de datos | MongoDB |
 | Calidad | ESLint, tests con `node:test` + Supertest, GitHub Actions |
+| Despliegue | Frontend en Cloudflare Workers, API en Render, base de datos en MongoDB Atlas |
 
 ## Estructura
 
@@ -62,6 +67,11 @@ http://localhost:5000/api/auth/<proveedor>/callback
 ```
 
 Mientras un proveedor no esté configurado, su botón vuelve al login con un aviso claro.
+
+## Despliegue
+
+- **API**: `render.yaml` define el servicio de Render (Blueprint). La cadena de conexión `MONGODB_URI` se configura en el panel de Render; `JWT_SECRET` se genera automáticamente.
+- **Frontend**: `LiveLevelUpReact/.env.production` indica la URL de la API y `npm run deploy` compila y publica en Cloudflare Workers como SPA (`wrangler.jsonc`).
 
 ## Tests
 
