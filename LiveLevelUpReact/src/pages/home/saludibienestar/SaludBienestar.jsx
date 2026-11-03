@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout.jsx';
 import styles from './SaludBienestar.module.css';
-import gatoMedico from '../../../assets/gato-medico.png';
+import gatoMedico from '../../../assets/gato-medico.webp';
 
 const catTips = [
   "¡Hola! Recuerda beber agua cada hora 🥤",

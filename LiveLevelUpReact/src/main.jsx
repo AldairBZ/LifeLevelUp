@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './styles/tokens.css';
 import './index.css';
 import './global-dark-mode.css';
+import './styles/tema-espacial.css';
 import { ThemeProvider } from './contexts/ThemeContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,129 +1,73 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import QuienesSomos from '../pages/home/footer/equipo/QuienesSomos.jsx';
 import Privacidad from '../pages/home/footer/privacidad/Terminos.jsx';
 import Referentes from '../pages/home/footer/referentes/Referentes.jsx';
 import './Footer.css';
 
+const MODALES = {
+  equipo: { titulo: 'Quiénes somos', contenido: () => <QuienesSomos /> },
+  privacidad: { titulo: 'Términos y privacidad', contenido: (cerrar) => <Privacidad onClose={cerrar} /> },
+  referentes: { titulo: 'Webs de confianza', contenido: () => <Referentes /> },
+};
+
 export default function Footer() {
-  const [modalAbierto, setModalAbierto] = useState(null);
-
-  const handleModalOpen = (modalType) => {
-    setModalAbierto(modalType);
-  };
-
-  const handleModalClose = () => {
-    setModalAbierto(null);
-  };
+  const [modal, setModal] = useState(null);
+  const cerrar = () => setModal(null);
 
   return (
     <>
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Columna principal */}
-          <div className="footer-col">
-            <h3>LifeLevelUp</h3>
-            <p>
-              Transforma tus hábitos, transforma el mundo. Únete a la revolución sostenible.
-            </p>
-            <div className="footer-emojis">
-              <span>🏆</span>
-              <span>🌱</span>
-              <span>💚</span>
-            </div>
+      <footer className="llu-footer">
+        <div className="llu-footer-grid">
+          <div className="llu-footer-marca">
+            <p className="llu-footer-logo">LifeLevelUp</p>
+            <p>Cada hábito cuenta dos veces: en tu salud y en la del planeta.</p>
           </div>
 
-          {/* Enlaces rápidos */}
-          <div className="footer-col">
-            <h4>Enlaces rápidos</h4>
+          <nav aria-label="Secciones">
+            <p className="llu-footer-titulo">Explora</p>
             <ul>
-              <li><a href="/home">Inicio</a></li>
-              <li><a href="/home/salud-bienestar">Salud y Bienestar</a></li>
-              <li><a href="/home/salud-planeta">Salud del Planeta</a></li>
-              <li><a href="/home/desafios">Desafíos</a></li>
-              <li><a href="/home/comunidad">Comunidad</a></li>
+              <li><Link to="/home/salud-bienestar">Salud y bienestar</Link></li>
+              <li><Link to="/home/salud-planeta">Salud del planeta</Link></li>
+              <li><Link to="/home/desafios">Desafíos</Link></li>
+              <li><Link to="/home/comunidad">Comunidad</Link></li>
+              <li><Link to="/home/blogs">Blog</Link></li>
             </ul>
-          </div>
+          </nav>
 
-          {/* Recursos */}
-          <div className="footer-col">
-            <h4>Recursos</h4>
+          <div>
+            <p className="llu-footer-titulo">Proyecto</p>
             <ul>
-              <li><a href="#guia">Guía de desafíos</a></li>
-              <li><a href="#consejos">Consejos para completar</a></li>
-              <li><a href="#recompensas">Sistema de recompensas</a></li>
-              <li><a href="#faq">FAQ</a></li>
-            </ul>
-          </div>
-
-          {/* Información legal y equipo */}
-          <div className="footer-col">
-            <h4>Información</h4>
-            <ul>
+              {Object.entries(MODALES).map(([id, m]) => (
+                <li key={id}>
+                  <button type="button" onClick={() => setModal(id)}>{m.titulo}</button>
+                </li>
+              ))}
               <li>
-                <button 
-                  className="footer-link-button"
-                  onClick={() => handleModalOpen('equipo')}
-                >
-                  👥 Quiénes somos
-                </button>
-              </li>
-              <li>
-                <button 
-                  className="footer-link-button"
-                  onClick={() => handleModalOpen('privacidad')}
-                >
-                  🔒 Términos y Privacidad
-                </button>
-              </li>
-              <li>
-                <button 
-                  className="footer-link-button"
-                  onClick={() => handleModalOpen('referentes')}
-                >
-                  🌐 Webs de confianza
-                </button>
+                <a href="https://github.com/AldairBZ/Frontend" target="_blank" rel="noreferrer">
+                  Código en GitHub
+                </a>
               </li>
             </ul>
-          </div>
-
-          {/* Contacto */}
-          <div className="footer-col">
-            <h4>Contacto</h4>
-            <div className="footer-contact">
-              <p>
-                <span>📧</span>
-                hola@lifelevelup.com
-              </p>
-              <p>
-                <span>🏆</span>
-                +34 666 DESAFIOS
-              </p>
-              <p>
-                <span>🌐</span>
-                España, Europa
-              </p>
-            </div>
           </div>
         </div>
-        
-        <div className="footer-bottom">
-          <p>© 2025 LifeLevelUp. Todos los derechos reservados.</p>
-        </div>
+        <p className="llu-footer-legal">© {new Date().getFullYear()} LifeLevelUp · Proyecto final de desarrollo web full stack</p>
       </footer>
 
-      {/* Modales */}
-      {modalAbierto && (
-        <div className="modal-overlay" onClick={handleModalClose}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={handleModalClose}>
-              ✕
-            </button>
-            {modalAbierto === 'equipo' && <QuienesSomos />}
-            {modalAbierto === 'privacidad' && <Privacidad onClose={handleModalClose} />}
-            {modalAbierto === 'referentes' && <Referentes />}
+      {modal && (
+        <div className="modal-overlay" onClick={cerrar}>
+          <div
+            className="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-label={MODALES[modal].titulo}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close" onClick={cerrar} aria-label="Cerrar">✕</button>
+            {MODALES[modal].contenido(cerrar)}
           </div>
         </div>
       )}
     </>
   );
-} 
+}

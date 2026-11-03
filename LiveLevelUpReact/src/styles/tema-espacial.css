@@ -1,0 +1,138 @@
+/*
+  Tema espacial común. Las páginas interiores definen sus colores con las mismas
+  variables (--text-dark, --bg-white, --bg-gradient...). Aquí se redirigen a la
+  paleta de LifeLevelUp con más especificidad, para que toda la web se vea igual
+  sin reescribir cada página.
+*/
+.dark-mode.dark-mode {
+  --primary-green: var(--llu-biome);
+  --secondary-green: #7aeac6;
+  --accent-green: #b3f5df;
+  --primary-blue: #5ab8ff;
+  --secondary-blue: #8ccfff;
+  --accent-blue: #c2e5ff;
+  --text-dark: var(--llu-mist);
+  --text-light: var(--llu-haze);
+  --text-white: #ffffff;
+  --bg-light: var(--llu-orbit);
+  --bg-white: #16244d;
+  --bg-gradient: linear-gradient(140deg, #142552 0%, #1f3b7a 60%, #24467f 100%);
+  --shadow-sm: 0 1px 2px 0 #0006;
+  --shadow-md: 0 6px 16px -6px #000a;
+  --shadow-lg: 0 14px 30px -10px #000b;
+  --shadow-xl: 0 24px 50px -16px #000c;
+}
+
+/* Tipografía común en todo el contenido */
+.dark-mode.dark-mode .layout-main {
+  font-family: var(--llu-font-body);
+}
+
+.dark-mode.dark-mode .layout-main :is(p, span, li, a, button, input, textarea, select, label, div) {
+  font-family: inherit;
+}
+
+.dark-mode.dark-mode .layout-main :is(h1, h2, h3) {
+  font-family: var(--llu-font-display);
+  letter-spacing: -0.02em;
+}
+
+/* La cabecera y su navegación no heredan los fondos genéricos */
+.dark-mode header.llu-header {
+  background: color-mix(in srgb, var(--llu-night) 82%, transparent);
+}
+
+.dark-mode header.llu-header nav,
+.dark-mode header.llu-header ul {
+  background: none;
+}
+
+.dark-mode footer.llu-footer nav,
+.dark-mode footer.llu-footer ul {
+  background: none;
+}
+
+.dark-mode footer.llu-footer a {
+  color: var(--llu-haze);
+}
+
+.dark-mode footer.llu-footer a:hover {
+  color: var(--llu-biome);
+}
+
+/* Botón de volver arriba e indicador de scroll con la paleta común */
+.dark-mode .scroll-to-top-btn {
+  background: var(--llu-orbit);
+  border: 1px solid var(--llu-orbit-line);
+  color: var(--llu-mist);
+  box-shadow: 0 10px 30px -10px #000c;
+}
+
+.dark-mode .scroll-to-top-btn:hover {
+  background: var(--llu-orbit-line);
+}
+
+.dark-mode .scroll-light {
+  display: none;
+}
+
+/* ===== Páginas interiores: fondos fijos de sus módulos CSS =====
+   Los módulos generan nombres como _heroGradient_ab12c_3, así que se
+   seleccionan por la parte estable del nombre. */
+.dark-mode .layout-main :is(
+  [class*="_saludBienestarWrapper_"],
+  [class*="_saludPlanetaWrapper_"],
+  [class*="_desafiosWrapper_"],
+  [class*="_blogsWrapper_"],
+  [class*="_avatarWrapper_"],
+  [class*="_comunidadWrapper_"]
+) {
+  background: var(--llu-night);
+}
+
+/* Los héroes de cada sección comparten el cielo de la home */
+.dark-mode .layout-main :is([class*="_heroGradient_"], [class*="_heroBackground_"]) {
+  background:
+    radial-gradient(1px 1px at 12% 22%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 18%, #fff6 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 60% 70%, #fff7 50%, transparent 51%),
+    radial-gradient(60% 80% at 70% 0%, #1f3b7a 0%, transparent 70%),
+    var(--llu-night);
+}
+
+.dark-mode .layout-main [class*="_heroTitleHighlight_"] {
+  background: none;
+  -webkit-text-fill-color: var(--llu-biome);
+  color: var(--llu-biome);
+}
+
+/* Paneles grandes: superficie elevada en lugar de colores pastel */
+.dark-mode .layout-main :is(
+  [class*="_wardrobePanel_"],
+  [class*="_centerPanel_"],
+  [class*="_configPanel_"],
+  [class*="_actionsPanel_"],
+  [class*="_chatPanel_"],
+  [class*="_educationSection_"],
+  [class*="_ecoReminder_"],
+  [class*="_systemMessage_"],
+  [class*="_catTip_"]
+) {
+  background: #16244d;
+  border-color: var(--llu-orbit-line);
+}
+
+.dark-mode .layout-main :is([class*="_chatPanel_"], [class*="_infoPanel_"], [class*="_progressCard_"])::before {
+  background: none;
+}
+
+/* Burbujas del chat del planeta */
+.dark-mode .layout-main [class*="_chatMessage_"] {
+  background: var(--llu-orbit);
+  border: 1px solid var(--llu-orbit-line);
+  color: var(--llu-mist);
+}
+
+.dark-mode .layout-main [class*="_chatMessage_"][class*="_ownMessage_"] {
+  background: color-mix(in srgb, var(--llu-biome) 22%, var(--llu-orbit));
+}

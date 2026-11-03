@@ -1,271 +1,115 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import perfilImg from '../assets/imagenes-home/perfil/perfil.png';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import perfilImg from '../assets/imagenes-home/perfil/perfil.webp';
+import apiService from '../config/api';
 import './Header.css';
 
-export default function Header({ darkMode, toggleTheme }) {
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const profileBtnRef = useRef(null);
-  const menuRef = useRef(null);
+const SECCIONES = [
+  { ruta: '/home/salud-bienestar', nombre: 'Salud' },
+  { ruta: '/home/salud-planeta', nombre: 'Planeta' },
+  { ruta: '/home/desafios', nombre: 'Desafíos' },
+  { ruta: '/home/comunidad', nombre: 'Comunidad' },
+  { ruta: '/home/blogs', nombre: 'Blog' },
+];
+
+export default function Header({ scrollProgress = 0 }) {
+  const [menuPerfil, setMenuPerfil] = useState(false);
+  const [menuMovil, setMenuMovil] = useState(false);
+  const perfilRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Detectar la página activa basándose en la URL
+  // Al cambiar de página se cierran los menús
   useEffect(() => {
-    const path = location.pathname;
-    if (path === '/home') {
-      setActiveSection('home');
-    } else if (path === '/home/salud-bienestar') {
-      setActiveSection('salud');
-    } else if (path === '/home/salud-planeta') {
-      setActiveSection('planeta');
-    } else if (path === '/home/desafios') {
-      setActiveSection('desafios');
-    } else if (path === '/home/comunidad') {
-      setActiveSection('comunidad');
-    } else if (path === '/home/blogs') {
-      setActiveSection('blogs');
-    } else {
-      setActiveSection('home');
-    }
+    setMenuMovil(false);
+    setMenuPerfil(false);
   }, [location.pathname]);
 
-  // Efecto para detectar scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const alClicarFuera = (e) => {
+      if (perfilRef.current && !perfilRef.current.contains(e.target)) setMenuPerfil(false);
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Cerrar menús al hacer clic fuera
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (profileBtnRef.current && !profileBtnRef.current.contains(event.target) &&
-          menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowProfileMenu(false);
+    const alPulsarEscape = (e) => {
+      if (e.key === 'Escape') {
+        setMenuPerfil(false);
+        setMenuMovil(false);
       }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    };
+    document.addEventListener('mousedown', alClicarFuera);
+    document.addEventListener('keydown', alPulsarEscape);
+    return () => {
+      document.removeEventListener('mousedown', alClicarFuera);
+      document.removeEventListener('keydown', alPulsarEscape);
+    };
   }, []);
 
-  // Cerrar menú móvil al cambiar de ruta
-  useEffect(() => {
-    setShowMobileMenu(false);
-  }, [navigate]);
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = 70;
-      const elementPosition = element.offsetTop - headerHeight;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
+  const cerrarSesion = async () => {
+    try {
+      await apiService.logout();
+    } catch {
+      // Aunque el servidor no responda, la sesión local se cierra igual
+      apiService.setToken(null);
     }
-  };
-
-  const handleProfileClick = () => {
-    setShowProfileMenu(prev => !prev);
-  };
-
-  const handleMobileMenuToggle = () => {
-    setShowMobileMenu(prev => !prev);
-  };
-
-  const handleLogout = () => {
-    // Lógica de logout aquí
     navigate('/login');
   };
 
-  const handleNavClick = (sectionId) => {
-    console.log('handleNavClick llamado con sectionId:', sectionId); // Test log
-    
-    if (sectionId === 'salud') {
-      navigate('/home/salud-bienestar');
-    } else if (sectionId === 'planeta') {
-      navigate('/home/salud-planeta');
-    } else if (sectionId === 'desafios') {
-      navigate('/home/desafios');
-    } else if (sectionId === 'comunidad') {
-      console.log('Navegando a comunidad...'); // Test log
-      navigate('/home/comunidad');
-    } else if (sectionId === 'blogs') {
-      navigate('/home/blogs');
-    } else {
-      scrollToSection(sectionId);
-    }
-    setShowMobileMenu(false);
-  };
-
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
-      <nav className="nav">
-        <div className="logo" onClick={() => navigate('/home')} style={{cursor: 'pointer'}}>
-          <span>LifeLevelUp</span>
-          {activeSection !== 'home' && (
-            <div className="active-indicator" />
-          )}
-        </div>
-        
-        {/* Menú hamburguesa para móvil */}
-        <div 
-          className={`menuToggle ${showMobileMenu ? 'active' : ''}`}
-          onClick={handleMobileMenuToggle}
+    <header className="llu-header">
+      <nav className="llu-nav" aria-label="Principal">
+        <NavLink to="/home" className="llu-logo" end>
+          <span className="llu-logo-orbita" aria-hidden="true" />
+          LifeLevelUp
+        </NavLink>
+
+        <button
+          type="button"
+          className={`llu-hamburguesa ${menuMovil ? 'abierta' : ''}`}
+          aria-expanded={menuMovil}
+          aria-controls="llu-menu"
+          aria-label={menuMovil ? 'Cerrar menú' : 'Abrir menú'}
+          onClick={() => setMenuMovil((v) => !v)}
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        
-        <ul className={`menu ${showMobileMenu ? 'active' : ''}`}>
-          <li>
-            <a 
-              href="#salud" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('salud');
-              }}
-              className={activeSection === 'salud' ? 'active' : ''}
-            >
-              <span>🌱</span>
-              Salud
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#planeta" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('planeta');
-              }}
-              className={activeSection === 'planeta' ? 'active' : ''}
-            >
-              <span>🌍</span>
-              Planeta
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#desafios" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('desafios');
-              }}
-              className={activeSection === 'desafios' ? 'active' : ''}
-            >
-              <span>🏆</span>
-              Desafíos
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#comunidad" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('comunidad');
-              }}
-              className={activeSection === 'comunidad' ? 'active' : ''}
-            >
-              <span>👥</span>
-              Comunidad
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#blogs" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('blogs');
-              }}
-              className={activeSection === 'blogs' ? 'active' : ''}
-            >
-              <span>📝</span>
-              Blogs
-            </a>
-          </li>
+          <span />
+          <span />
+        </button>
+
+        <ul id="llu-menu" className={`llu-menu ${menuMovil ? 'abierto' : ''}`}>
+          {SECCIONES.map((s) => (
+            <li key={s.ruta}>
+              <NavLink to={s.ruta} className={({ isActive }) => (isActive ? 'activo' : '')}>
+                {s.nombre}
+              </NavLink>
+            </li>
+          ))}
         </ul>
-        
-        <div className="actions">
-          {/* Toggle de tema */}
-          <div className="options">
-            <label className="switchLabel">
-              <input 
-                type="checkbox" 
-                checked={darkMode} 
-                onChange={toggleTheme} 
-                className="switchInput" 
-              />
-              <span className="switchSlider"></span>
-              <span className="switchText">{darkMode ? '🌙' : '☀️'}</span>
-            </label>
-          </div>
-          
-          {/* Botón de perfil */}
+
+        <div className="llu-perfil" ref={perfilRef}>
           <button
-            ref={profileBtnRef}
-            className="profile-btn"
-            title="Usuario"
-            onClick={handleProfileClick}
+            type="button"
+            className="llu-perfil-boton"
+            aria-haspopup="menu"
+            aria-expanded={menuPerfil}
+            aria-label="Menú de usuario"
+            onClick={() => setMenuPerfil((v) => !v)}
           >
-            <img
-              src={perfilImg}
-              alt="Perfil"
-              className="profile-img"
-            />
+            <img src={perfilImg} alt="" width="36" height="36" />
           </button>
-          
-          {showProfileMenu && (
-            <div ref={menuRef} className={`profileMenu ${darkMode ? 'profileMenuDark' : ''}`}>
-              <button 
-                className="profileMenuItem" 
-                onClick={() => {
-                  navigate('/home/avatar/personalizar');
-                  setShowProfileMenu(false);
-                }}
-              >
-                <span>👤</span>
-                Editar perfil
+          {menuPerfil && (
+            <div className="llu-perfil-menu" role="menu">
+              <button role="menuitem" onClick={() => navigate('/home/avatar/personalizar')}>
+                Personalizar avatar
               </button>
-              <button 
-                className="profileMenuItem" 
-                onClick={() => {
-                  navigate('/home');
-                  setShowProfileMenu(false);
-                }}
-              >
-                <span>🏠</span>
+              <button role="menuitem" onClick={() => navigate('/home')}>
                 Inicio
               </button>
-              <button 
-                className="profileMenuItem" 
-                onClick={() => {
-                  navigate('/home/avatar');
-                  setShowProfileMenu(false);
-                }}
-              >
-                <span>🎨</span>
-                Mi Avatar
-              </button>
-              <button 
-                className="profileMenuItem logoutBtn" 
-                onClick={handleLogout}
-              >
-                <span>🚪</span>
+              <button role="menuitem" className="llu-salir" onClick={cerrarSesion}>
                 Cerrar sesión
               </button>
             </div>
           )}
         </div>
       </nav>
+      <div className="llu-progreso" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
     </header>
   );
-} 
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginTriangle.css';
-import planeta from '../../assets/svg/planet.png';
+import planeta from '../../assets/svg/planet.webp';
 import FondoEspacioLogin from './FondoEspacioLogin';
 import { CampoAsteroides, CinturonPlaneta } from './Asteroides';
 import Terminos from '../home/footer/privacidad/Terminos';

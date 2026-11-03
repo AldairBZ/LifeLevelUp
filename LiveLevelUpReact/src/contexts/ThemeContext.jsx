@@ -5,14 +5,8 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    // Leer el tema del localStorage o usar el preferido por el sistema
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  // La web entera usa el tema espacial oscuro; se deja el toggle por compatibilidad
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     // Aplicar el tema al body, html y root, y guardar en localStorage

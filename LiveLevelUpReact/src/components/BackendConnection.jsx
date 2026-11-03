@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import apiService from '../config/api';
 
 export default function BackendConnection() {
@@ -6,14 +6,16 @@ export default function BackendConnection() {
   const [connectionData, setConnectionData] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    checkConnection();
-  }, []);
-
-  const checkConnection = async () => {
+  // Un fallo aislado (por ejemplo, una petición cortada al cambiar de página)
+  // no debe mostrar el aviso: se reintenta una vez antes de darlo por caído
+  const checkConnection = useCallback(async function comprobar(reintento = true) {
     try {
       setConnectionStatus('checking');
       const result = await apiService.checkBackendConnection();
+      if (!result.connected && reintento) {
+        await new Promise((r) => setTimeout(r, 1500));
+        return comprobar(false);
+      }
       
       if (result.connected) {
         setConnectionStatus('connected');
@@ -25,11 +27,19 @@ export default function BackendConnection() {
         setConnectionData(null);
       }
     } catch (err) {
+      if (reintento) {
+        await new Promise((r) => setTimeout(r, 1500));
+        return comprobar(false);
+      }
       setConnectionStatus('error');
       setError(err.message);
       setConnectionData(null);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    checkConnection();
+  }, [checkConnection]);
 
   const getStatusIcon = () => {
     switch (connectionStatus) {
@@ -100,7 +110,7 @@ export default function BackendConnection() {
       )}
       
       <button 
-        onClick={checkConnection}
+        onClick={() => checkConnection()}
         style={{
           marginTop: '8px',
           background: 'rgba(255,255,255,0.2)',

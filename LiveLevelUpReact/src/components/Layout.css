@@ -1,10 +1,13 @@
 /* Layout Component Styles */
 .layout {
+  /* Altura fija: el scroll ocurre dentro de .layout-main y la cabecera se queda arriba */
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fff;
-  color: #333;
+  background: var(--llu-night);
+  color: var(--llu-mist);
+  font-family: var(--llu-font-body);
   overflow: hidden;
 }
 
@@ -14,8 +17,8 @@
   flex-direction: column;
   overflow-y: auto;
   scroll-behavior: smooth;
-  background: #fff;
-  color: #333;
+  background: var(--llu-night);
+  color: var(--llu-mist);
   position: relative;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;

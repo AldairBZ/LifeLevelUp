@@ -36,3 +36,8 @@
   --llu-radius-lg: 24px;   /* paneles */
   --llu-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Giro de los planetas: se usa en el login y en la home */
+@keyframes planet-spin {
+  to { transform: rotate(360deg); }
+}

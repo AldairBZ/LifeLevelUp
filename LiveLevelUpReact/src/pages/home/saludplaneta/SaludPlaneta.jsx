@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout.jsx';
 import styles from './SaludPlaneta.module.css';
-import planetaImg from '../../../assets/svg/planet.png';
-import gatoMedicoImg from '../../../assets/gato-medico.png';
+import planetaImg from '../../../assets/svg/planet.webp';
+import gatoMedicoImg from '../../../assets/gato-medico.webp';
 
 const catTips = [
   "¡Hola! Recuerda apagar las luces cuando salgas de una habitación 💡",

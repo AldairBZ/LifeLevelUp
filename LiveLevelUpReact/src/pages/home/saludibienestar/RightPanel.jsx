@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './SaludBienestar.module.css';
-import gatoMedicoImg from '../../../assets/gato-medico.png';
+import gatoMedicoImg from '../../../assets/gato-medico.webp';
 
 const consejos = [
   "Recuerda beber 2 litros de agua al día.",

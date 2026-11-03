@@ -106,3 +106,11 @@ test('un proveedor que no existe devuelve 404', async () => {
   const res = await request(app).get('/api/auth/myspace');
   assert.equal(res.status, 404);
 });
+
+test('las respuestas a localhost:5173 llevan cabeceras CORS', async () => {
+  const res = await request(app)
+    .options('/api/health-check')
+    .set('Origin', 'http://localhost:5173')
+    .set('Access-Control-Request-Method', 'GET');
+  assert.equal(res.headers['access-control-allow-origin'], 'http://localhost:5173');
+});

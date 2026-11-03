@@ -36,10 +36,20 @@ app.use(helmet({
   },
 }));
 
-// Rate limiting
+// CORS va antes que el limitador: así incluso un 429 lleva sus cabeceras
+// y el navegador muestra el error real en vez de un fallo de CORS
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production'
+    ? (process.env.FRONTEND_URL || '').split(',').filter(Boolean)
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5176'],
+  credentials: true
+}));
+
+// Rate limiting (la comprobación de estado no cuenta)
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutos
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // máximo 100 requests por ventana
+  skip: (req) => req.path === '/health-check',
   message: {
     error: 'Demasiadas peticiones desde esta IP, intenta de nuevo más tarde.'
   }
@@ -51,12 +61,6 @@ app.use(compression());
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com'] 
-    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5176'],
-  credentials: true
-}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

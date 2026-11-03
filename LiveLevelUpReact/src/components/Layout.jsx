@@ -5,7 +5,7 @@ import Footer from './Footer.jsx';
 import './Layout.css';
 
 export default function Layout({ children, showFooter = true, showScrollToTop = true }) {
-  const { darkMode, toggleTheme } = useTheme();
+  const { darkMode } = useTheme();
   const mainRef = useRef(null);
   const [showScrollLight, setShowScrollLight] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -47,11 +47,7 @@ export default function Layout({ children, showFooter = true, showScrollToTop = 
 
   return (
     <div className={`layout ${darkMode ? 'dark-mode' : ''}`}>
-      <Header 
-        darkMode={darkMode} 
-        toggleTheme={toggleTheme} 
-        scrollProgress={scrollProgress}
-      />
+      <Header scrollProgress={scrollProgress} />
       
       <main 
         ref={mainRef} 
