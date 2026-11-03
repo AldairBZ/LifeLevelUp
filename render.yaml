@@ -1,0 +1,24 @@
+# Despliegue del backend en Render (plan gratuito)
+services:
+  - type: web
+    name: lifelevelup-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health-check
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: FRONTEND_URL
+        value: https://lifelevelup.08-pruebas.workers.dev
+      - key: BACKEND_URL
+        value: https://lifelevelup-api.onrender.com
+      # Se rellena en el panel de Render con la cadena de conexión de MongoDB Atlas
+      - key: MONGODB_URI
+        sync: false
